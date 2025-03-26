@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>字典管理</title>
+    <#include "/header.html">
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="请输入姓名">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+                <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+                <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+                <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">id</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="personal.id" placeholder="id"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">竞赛项目名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="personal.title" placeholder="请输入竞赛项目名称"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">姓名</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="personal.name" placeholder="请输入姓名"/>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="col-sm-2 control-label">学院</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="personal.college" placeholder="请输入学院"/>
+            </div>
+        </div>
+            <div class="form-group">
+            <div class="col-sm-2 control-label">班级</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="personal.className" placeholder="请输入班级"/>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">年级</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="personal.grade" placeholder="请输入班级"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">专业</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="personal.major" placeholder="请输入专业"/>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="col-sm-2 control-label">电话</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="personal.phone" placeholder="请输入电话"/>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">邮箱</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="personal.email" placeholder="请输入邮箱"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${request.contextPath}/statics/js/modules/sys/personal.js?_${.now?long}"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>字典管理</title>
+    <#include "/header.html">
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="行政区域名称">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+            <#if shiro.hasPermission("sys:dict:save")>
+                <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            </#if>
+            <#if shiro.hasPermission("sys:dict:update")>
+                <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            </#if>
+            <#if shiro.hasPermission("sys:dict:delete")>
+                <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            </#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">id</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="dict.id" placeholder="id"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">行政区域名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="dict.name" placeholder="行政区域名称"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">行政区域类型</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="dict.type" placeholder="行政区域类型"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">行政区域编码</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="dict.code" placeholder="行政区域编码"/>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">排序</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="dict.orderNum" placeholder="排序"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">经纬度</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="dict.remark" placeholder="经纬度"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/dict.js?_${.now?long}"></script>
+
+<script type="text/javascript">
+
+    $('select[name=test]').change(function(){
+        var price = $('select[name=test] option:selected').val();
+        $("#test").val(price);
+        $("#test").find("option[value = '"+price+"']").attr("selected","selected");
+        alert(price)
+    })
+
+    function cshi2(){
+        document.getElementById("cshi").options.length = 0;
+        var name=document.getElementById("test").value;
+        var url = "sys/dict/cshi?name="+name;
+        $.ajax({
+            "type" : 'get',
+            url: baseURL + url,
+            "dataType" : "json",
+            "success" : function(data) {
+                if(data.code === 0) {
+                    console.log(data.list);
+                    var add = document.getElementById("cshi");
+                    for (var i = 0; i < data.list.length; i++) {
+                        var option = document.createElement("option");
+                        option.id = data.list[i].id;
+                        option.innerText = data.list[i].name;
+                        add.append(option);
+                    }
+
+                }
+
+            }
+        });
+    }
+
+    function test2(){
+        $('select[name=test]').change(function(){
+            var price = $('select[name=test] option:selected').val();
+            $("#test").val(price);
+            $("#test").find("option[value = '"+price+"']").attr("selected","selected");
+            alert(price)
+        })
+        document.getElementById("test").options.length = 0;
+        var url = "sys/dict/test";
+        $.ajax({
+            "type" : 'get',
+            url: baseURL + url,
+            "dataType" : "json",
+            "success" : function(data) {
+                if(data.code === 0) {
+                    console.log(data.mapList);
+                    var add = document.getElementById("test");
+                    for (var i = 0; i < data.mapList.length; i++) {
+                        var option = document.createElement("option");
+                        option.id = data.mapList[i].id;
+                        option.innerText = data.mapList[i].name;
+                        add.append(option);
+                    }
+                }
+
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>字典管理</title>
+    <#include "/header.html">
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="请输入参赛名称">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+                        <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;项目结题申请</a>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+    <div v-show="!showList" class="panel panel-default">
+            <div class="panel-heading">{{title}}</div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">id</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="closing.id" placeholder="id" readonly="readonly"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">类型</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="closing.jtType" placeholder="类型" readonly="readonly"/>
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">参赛项目名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="closing.title" placeholder="参赛项目名称" readonly="readonly"/>
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">获奖名次</div>
+                    <div class="col-sm-10">
+                        <!--<input type="text" class="form-control" v-model="closing.order" placeholder="参赛项目名称"/>-->
+                        <select class="form-control"  name ="ranking"  id="ranking">
+                            <option value="">请选择</option>
+                            <option value="特等奖">特等奖</option>
+                            <option value="一等奖">一等奖</option>
+                            <option value="二等奖">二等奖</option>
+                            <option value="三等奖">三等奖</option>
+                            <option value="优等奖">优等奖</option>
+                            <option value="无">无</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">资金使用共计：</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="closing.totalMoney" placeholder="请输入资金使用共计" />
+                    </div>
+                </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${request.contextPath}/statics/js/modules/sys/closing.js?_${.now?long}"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>
